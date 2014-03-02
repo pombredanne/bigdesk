@@ -1,4 +1,23 @@
-// _nodes/stats
+/*   
+   Copyright 2011-2014 Lukas Vlcek
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+/**
+ * REST end point: _nodes/stats?human=true
+ * @see <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html">nodes statistics<a/>
+ */
 
 var NodeStats = Backbone.Model;
 
@@ -22,7 +41,7 @@ var NodeStatsTimestamp = Backbone.Model.extend({
 var NodesStats = Backbone.Collection.extend({
     model: NodeStatsTimestamp,
     url: function() {
-        return '/_nodes/stats?all=true';
+        return '/_nodes/stats?human=true';
     },
     parse: function(response) {
         delete response.cluster_name;
@@ -67,7 +86,7 @@ var NodesStats = Backbone.Collection.extend({
         return parentCall;
     },
 
-    // make sure model are ordered by time (in case AJAX responses are returned in wrong order)
+    // make sure models are ordered by time (in case AJAX responses are returned in wrong order)
     comparator: function(model) {
         return model.id;
     }
